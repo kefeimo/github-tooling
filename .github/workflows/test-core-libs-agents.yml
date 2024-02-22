@@ -30,6 +30,7 @@ jobs:
           - volttron-postgresql-historian
           - volttron-sqlite-historian
           - volttron-listener
+          - volttron-lib-web
     steps:
       - name: Invoke run-tests on core repos
         uses: benc-uk/workflow-dispatch@v1
