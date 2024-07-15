@@ -91,7 +91,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: develop
-          token: ${{ secrets.git-token }}
+          # token: ${{ secrets.git-token }}
 
       - name: Do a git merge dry run
         id: merge-dry-run
