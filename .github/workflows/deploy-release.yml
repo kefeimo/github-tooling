@@ -1,6 +1,33 @@
 name: Deploy Release Artifacts
 
 on:
+  workflow_dispatch:  # Allows manual triggering from the UI
+    inputs:
+      merge-strategy:
+        description: 'Merge strategy and strategy options. Used only in case of merge conflicts'
+        required: false
+        default: ''
+        type: string
+      release-version:
+        description: 'Version number to use. If provided bump-rule will be ignored'
+        required: false
+        default: ''
+        type: string
+      bump-rule:
+        description: 'Bump rule for computing next release version number. Used when no release-version is given. Valid choices are: patch, minor, major, prepatch, preminor, premajor, prerelease'
+        required: false
+        default: 'prerelease'
+        type: string
+      run-tests-wait:
+        description: 'Wait time to run test after merge to main'
+        required: false
+        default: 600
+        type: number
+      publish-to-test-pypi:
+        description: 'Set to true if you want to publish to https://test.pypi.org/legacy/ instead of pypi.org'
+        required: false
+        default: false
+        type: boolean
   workflow_call:
     inputs:
       merge-strategy:
