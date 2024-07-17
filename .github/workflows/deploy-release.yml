@@ -24,14 +24,10 @@ on:
         default: 600
         type: number
       publish-option:
-        description: 'Choose where to publish: pypi, test-pypi, or none'
+        description: 'Choose where to publish: pypi, test-pypi, or none. Valid options are "pypi", "test-pypi", or "none".'
         required: false
         default: 'none'
-        type: choice
-        options:
-          - pypi
-          - test-pypi
-          - none
+        type: string
 
     secrets:
       git-token:
