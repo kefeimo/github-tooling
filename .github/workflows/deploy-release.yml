@@ -155,14 +155,13 @@ jobs:
           virtualenvs-in-project: true
           installer-parallel: true
 
-
       #----------------------------------------------
-      # install your root project, if required
+      # Update lock file if needed and install dependencies
       #----------------------------------------------
-      - name: Install library
+      - name: Update lock file and install dependencies
         run: |
           poetry lock --no-update
-          poetry install --no-interaction 
+          poetry install --no-interaction --with dev
 
       - name: Use given release-version number
         if: inputs.release-version != ''
@@ -241,8 +240,6 @@ jobs:
         id: run-tests-on-main
         run: |
           if [[ -d tests ]]; then
-            poetry add pytest-timeout --group dev
-            poetry install --no-interaction
             poetry run pytest --timeout=${{ inputs.run-tests-wait }} tests
           fi
         continue-on-error: true
@@ -286,7 +283,7 @@ jobs:
 
       - name: Publish to test-pypi
         id: publish-to-test-pypi
-        if: ${{ inputs.publish-to-test-pypi  }}
+        if: ${{ inputs.publish-to-test-pypi }}
         run: |
           poetry config repositories.test-pypi https://test.pypi.org/legacy/
           poetry config pypi-token.test-pypi ${{ secrets.pypi-token }}
