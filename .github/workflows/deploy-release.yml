@@ -300,8 +300,8 @@ jobs:
       #--------------------------------------------------------------
       - name: Merge changes back to develop
         run: |
-          git stash push -u -m "Stash local changes before checkout"
+          git reset --hard
+          git clean -fd
           git checkout develop
           git merge main
-          git push 
-          git stash pop
+          git push
